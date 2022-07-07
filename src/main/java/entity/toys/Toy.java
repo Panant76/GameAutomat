@@ -14,7 +14,7 @@ public class Toy {
     }
 
     public boolean checkQuanToys() throws ToysProblemException {
-        if (quanToys > 10 || quanToys < 2) {
+        if (quanToys > 10 || quanToys <= 2) {
             throw new ToysProblemException();
         }
         return true;
