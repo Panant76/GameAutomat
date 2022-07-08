@@ -1,6 +1,5 @@
 package processmanager;
 
-import entity.many.Coins;
 import entity.toys.Toy;
 import exeption.ToysProblemException;
 import service.IOService;
@@ -8,15 +7,12 @@ import service.IOServiceImpl;
 
 public class GameAutomat {
     private int counter = 1;
-    private Coins coins;
     private Toy toy;
     private IOService ioservise;
 
     public GameAutomat() {
-        this.coins = new Coins(50);
         this.toy = new Toy(10);
         this.ioservise = new IOServiceImpl();
-
     }
 
     public void run() {
@@ -35,7 +31,7 @@ public class GameAutomat {
                 startGame((operation * 100) / 50);
                 break;
             default:
-                ioservise.write("Не известная операция");
+                ioservise.write("Не та монета !");
                 run();
         }
     }
