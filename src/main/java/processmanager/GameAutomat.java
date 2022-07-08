@@ -7,6 +7,7 @@ import service.IOService;
 import service.IOServiceImpl;
 
 public class GameAutomat {
+    private int counter = 1;
     private Coins coins;
     private Toy toy;
     private IOService ioservise;
@@ -27,13 +28,11 @@ public class GameAutomat {
         int operation = ioservise.read();
         switch (operation) {
             case 50:
-                startGame(operation/50);
+                startGame(operation / 50);
                 break;
             case 1:
-                startGame(operation/50);
-                break;
             case 2:
-                startGame(operation/50);
+                startGame((operation * 100) / 50);
                 break;
             default:
                 ioservise.write("Не известная операция");
@@ -44,17 +43,20 @@ public class GameAutomat {
     public void startGame(int gameCounter) {
         while (checkQuanToys()) {
             for (int i = 0; i < gameCounter; i++) {
-                int counter = 1;
                 if (counter % 5 == 0) {
-                    ioservise.write("Вы выиграли!!!");
+                    ioservise.write("Вы выиграли !!!");
                     toy.setQuanToys();
                 } else {
-                    ioservise.write("Вы проиграли!!!");
+                    ioservise.write("Вы проиграли !!!");
                 }
-                counter=counter+1;
+                counter = counter + 1;
+
             }
+            run();
+            break;
         }
     }
+
     private void welcomMessage() {
         ioservise.write("Закиньте монету (1 игра - 50 копеек)");
         ioservise.write("Принимаются монеты достоинством: 50 коп., 1 руб., 2 руб.");
@@ -62,7 +64,7 @@ public class GameAutomat {
 
     public boolean checkQuanToys() {
         try {
-            if(toy.checkQuanToys()) return true;
+            if (toy.checkQuanToys()) return true;
         } catch (ToysProblemException e) {
             ioservise.write(e.getMessage());
         }
